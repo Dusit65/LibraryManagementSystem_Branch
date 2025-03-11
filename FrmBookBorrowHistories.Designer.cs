@@ -35,9 +35,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lsBookBorrow = new System.Windows.Forms.ListView();
             this.btSearch = new System.Windows.Forms.Button();
-            this.btMainMenu = new System.Windows.Forms.Button();
             this.cbUserId = new System.Windows.Forms.CheckBox();
             this.cbdtpBorrow = new System.Windows.Forms.CheckBox();
+            this.btCancel = new System.Windows.Forms.Button();
+            this.btMainMenu = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // HeadLabel
@@ -48,57 +52,99 @@
             this.HeadLabel.Name = "HeadLabel";
             this.HeadLabel.Size = new System.Drawing.Size(529, 64);
             this.HeadLabel.TabIndex = 3;
-            this.HeadLabel.Text = "Book Borrow Histories";
+            this.HeadLabel.Text = "ประวัติการยืมหนังสือ";
             this.HeadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dtpBorrow
             // 
-            this.dtpBorrow.CustomFormat = "yyyy - mm";
-            this.dtpBorrow.Enabled = false;
+            this.dtpBorrow.CustomFormat = "MM/yyyy";
             this.dtpBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.dtpBorrow.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpBorrow.Location = new System.Drawing.Point(219, 150);
             this.dtpBorrow.MaxDate = new System.DateTime(2200, 12, 31, 0, 0, 0, 0);
             this.dtpBorrow.Name = "dtpBorrow";
-            this.dtpBorrow.Size = new System.Drawing.Size(100, 22);
+            this.dtpBorrow.ShowUpDown = true;
+            this.dtpBorrow.Size = new System.Drawing.Size(110, 22);
             this.dtpBorrow.TabIndex = 4;
             // 
             // tbUserId
             // 
             this.tbUserId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.tbUserId.Location = new System.Drawing.Point(219, 111);
+            this.tbUserId.Location = new System.Drawing.Point(219, 122);
             this.tbUserId.Name = "tbUserId";
-            this.tbUserId.Size = new System.Drawing.Size(100, 22);
+            this.tbUserId.Size = new System.Drawing.Size(110, 22);
             this.tbUserId.TabIndex = 5;
+            this.tbUserId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbUserId_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label1.Location = new System.Drawing.Point(161, 114);
+            this.label1.Location = new System.Drawing.Point(161, 125);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 16);
+            this.label1.Size = new System.Drawing.Size(47, 16);
             this.label1.TabIndex = 6;
-            this.label1.Text = "User ID";
+            this.label1.Text = "รหัสผู้ใช้";
             // 
             // lsBookBorrow
             // 
+            this.lsBookBorrow.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
             this.lsBookBorrow.HideSelection = false;
             this.lsBookBorrow.Location = new System.Drawing.Point(141, 179);
             this.lsBookBorrow.Name = "lsBookBorrow";
-            this.lsBookBorrow.Size = new System.Drawing.Size(530, 245);
+            this.lsBookBorrow.Size = new System.Drawing.Size(530, 286);
             this.lsBookBorrow.TabIndex = 7;
             this.lsBookBorrow.UseCompatibleStateImageBehavior = false;
             // 
             // btSearch
             // 
             this.btSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btSearch.Location = new System.Drawing.Point(337, 150);
+            this.btSearch.Location = new System.Drawing.Point(345, 150);
             this.btSearch.Name = "btSearch";
             this.btSearch.Size = new System.Drawing.Size(74, 25);
             this.btSearch.TabIndex = 10;
-            this.btSearch.Text = "Search";
+            this.btSearch.Text = "ค้นหา";
             this.btSearch.UseVisualStyleBackColor = true;
+            this.btSearch.Click += new System.EventHandler(this.btSearch_Click);
+            // 
+            // cbUserId
+            // 
+            this.cbUserId.AutoSize = true;
+            this.cbUserId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cbUserId.Location = new System.Drawing.Point(140, 127);
+            this.cbUserId.Name = "cbUserId";
+            this.cbUserId.Size = new System.Drawing.Size(15, 14);
+            this.cbUserId.TabIndex = 12;
+            this.cbUserId.UseVisualStyleBackColor = true;
+            this.cbUserId.Click += new System.EventHandler(this.cbUserId_Click);
+            // 
+            // cbdtpBorrow
+            // 
+            this.cbdtpBorrow.AutoSize = true;
+            this.cbdtpBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cbdtpBorrow.Location = new System.Drawing.Point(140, 154);
+            this.cbdtpBorrow.Name = "cbdtpBorrow";
+            this.cbdtpBorrow.Size = new System.Drawing.Size(15, 14);
+            this.cbdtpBorrow.TabIndex = 13;
+            this.cbdtpBorrow.UseVisualStyleBackColor = true;
+            this.cbdtpBorrow.Click += new System.EventHandler(this.cbdtpBorrow_Click);
+            // 
+            // btCancel
+            // 
+            this.btCancel.BackColor = System.Drawing.Color.Transparent;
+            this.btCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btCancel.Image = global::MiniProjectLibraryManagementSystem.Properties.Resources.cancel;
+            this.btCancel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btCancel.Location = new System.Drawing.Point(695, 295);
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(83, 75);
+            this.btCancel.TabIndex = 14;
+            this.btCancel.Text = "ยกเลิก";
+            this.btCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btCancel.UseVisualStyleBackColor = false;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // btMainMenu
             // 
@@ -106,41 +152,45 @@
             this.btMainMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btMainMenu.Image = global::MiniProjectLibraryManagementSystem.Properties.Resources.MainMenu1;
             this.btMainMenu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btMainMenu.Location = new System.Drawing.Point(695, 349);
+            this.btMainMenu.Location = new System.Drawing.Point(695, 390);
             this.btMainMenu.Name = "btMainMenu";
             this.btMainMenu.Size = new System.Drawing.Size(83, 75);
             this.btMainMenu.TabIndex = 11;
-            this.btMainMenu.Text = "Main Menu";
+            this.btMainMenu.Text = "กลับสู่หน้าหลัก";
             this.btMainMenu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btMainMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btMainMenu.UseVisualStyleBackColor = false;
+            this.btMainMenu.Click += new System.EventHandler(this.btMainMenu_Click);
             // 
-            // cbUserId
+            // label2
             // 
-            this.cbUserId.AutoSize = true;
-            this.cbUserId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cbUserId.Location = new System.Drawing.Point(140, 116);
-            this.cbUserId.Name = "cbUserId";
-            this.cbUserId.Size = new System.Drawing.Size(15, 14);
-            this.cbUserId.TabIndex = 12;
-            this.cbUserId.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label2.Location = new System.Drawing.Point(162, 154);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 16);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "ปี เดือน";
             // 
-            // cbdtpBorrow
+            // label3
             // 
-            this.cbdtpBorrow.AutoSize = true;
-            this.cbdtpBorrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cbdtpBorrow.Location = new System.Drawing.Point(141, 157);
-            this.cbdtpBorrow.Name = "cbdtpBorrow";
-            this.cbdtpBorrow.Size = new System.Drawing.Size(15, 14);
-            this.cbdtpBorrow.TabIndex = 13;
-            this.cbdtpBorrow.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label3.Location = new System.Drawing.Point(137, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(96, 16);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "ค้นหาประวัติการยืม";
             // 
             // FrmBookBorrowHistories
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 477);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btCancel);
             this.Controls.Add(this.cbdtpBorrow);
             this.Controls.Add(this.cbUserId);
             this.Controls.Add(this.btMainMenu);
@@ -156,6 +206,7 @@
             this.Name = "FrmBookBorrowHistories";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Library Management System - Book Borrow Histories";
+            this.Load += new System.EventHandler(this.FrmBookBorrowHistories_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,5 +223,9 @@
         private System.Windows.Forms.Button btMainMenu;
         private System.Windows.Forms.CheckBox cbUserId;
         private System.Windows.Forms.CheckBox cbdtpBorrow;
+        private System.Windows.Forms.Button btCancel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }

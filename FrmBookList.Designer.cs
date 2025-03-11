@@ -36,8 +36,9 @@
             this.rdISBN = new System.Windows.Forms.RadioButton();
             this.rdBookName = new System.Windows.Forms.RadioButton();
             this.rdBookTypeId = new System.Windows.Forms.RadioButton();
-            this.btMainMenu = new System.Windows.Forms.Button();
             this.btSearch = new System.Windows.Forms.Button();
+            this.btMainMenu = new System.Windows.Forms.Button();
+            this.btCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lsBookList
@@ -115,6 +116,16 @@
             this.rdBookTypeId.Text = "Book type ID";
             this.rdBookTypeId.UseVisualStyleBackColor = true;
             // 
+            // btSearch
+            // 
+            this.btSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btSearch.Location = new System.Drawing.Point(378, 165);
+            this.btSearch.Name = "btSearch";
+            this.btSearch.Size = new System.Drawing.Size(74, 25);
+            this.btSearch.TabIndex = 9;
+            this.btSearch.Text = "Search";
+            this.btSearch.UseVisualStyleBackColor = true;
+            // 
             // btMainMenu
             // 
             this.btMainMenu.BackColor = System.Drawing.Color.Transparent;
@@ -130,15 +141,20 @@
             this.btMainMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btMainMenu.UseVisualStyleBackColor = false;
             // 
-            // btSearch
+            // btCancel
             // 
-            this.btSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btSearch.Location = new System.Drawing.Point(378, 165);
-            this.btSearch.Name = "btSearch";
-            this.btSearch.Size = new System.Drawing.Size(74, 25);
-            this.btSearch.TabIndex = 9;
-            this.btSearch.Text = "Search";
-            this.btSearch.UseVisualStyleBackColor = true;
+            this.btCancel.BackColor = System.Drawing.Color.Transparent;
+            this.btCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btCancel.Image = global::MiniProjectLibraryManagementSystem.Properties.Resources.cancel;
+            this.btCancel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btCancel.Location = new System.Drawing.Point(694, 267);
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(83, 75);
+            this.btCancel.TabIndex = 15;
+            this.btCancel.Text = "Cancel";
+            this.btCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btCancel.UseVisualStyleBackColor = false;
             // 
             // FrmBookList
             // 
@@ -146,6 +162,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(789, 450);
+            this.Controls.Add(this.btCancel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.rdBookTypeId);
             this.Controls.Add(this.rdBookName);
@@ -178,5 +195,6 @@
         private System.Windows.Forms.RadioButton rdBookTypeId;
         private System.Windows.Forms.Button btMainMenu;
         private System.Windows.Forms.Button btSearch;
+        private System.Windows.Forms.Button btCancel;
     }
 }

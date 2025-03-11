@@ -16,7 +16,7 @@ namespace MiniProjectLibraryManagementSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmBookList());
+            Application.Run(new FrmBookBorrowHistories());
         }
     }
 }
