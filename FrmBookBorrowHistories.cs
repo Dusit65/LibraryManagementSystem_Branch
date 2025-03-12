@@ -21,7 +21,7 @@ namespace MiniProjectLibraryManagementSystem
         
 
 
-        //+++++++++++++++++++++++++++++++ End of Method And Variable ++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++++++++ End of Method And Variable +++++++++++++++++++++++++++++++++++++++++++
 
         //FormLoad
         private void FrmBookBorrowHistories_Load(object sender, EventArgs e)
@@ -91,9 +91,9 @@ namespace MiniProjectLibraryManagementSystem
         //tbUserId_KeyPress===============================================
         private void tbUserId_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
-                e.Handled = true; 
+                e.Handled = true; // Block the keypress
             }
         }
 
