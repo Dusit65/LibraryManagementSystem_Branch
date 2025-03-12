@@ -66,7 +66,7 @@
             this.HeadLabel.Name = "HeadLabel";
             this.HeadLabel.Size = new System.Drawing.Size(529, 64);
             this.HeadLabel.TabIndex = 2;
-            this.HeadLabel.Text = "Book List";
+            this.HeadLabel.Text = "รายการหนังสือ";
             this.HeadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
@@ -75,10 +75,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label2.Location = new System.Drawing.Point(129, 61);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 16);
+            this.label2.Size = new System.Drawing.Size(53, 16);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Search by";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.label2.Text = "ค้นหาด้วย";
             // 
             // rdISBN
             // 
@@ -86,10 +85,10 @@
             this.rdISBN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.rdISBN.Location = new System.Drawing.Point(132, 87);
             this.rdISBN.Name = "rdISBN";
-            this.rdISBN.Size = new System.Drawing.Size(56, 20);
+            this.rdISBN.Size = new System.Drawing.Size(214, 20);
             this.rdISBN.TabIndex = 5;
             this.rdISBN.TabStop = true;
-            this.rdISBN.Text = "ISBN";
+            this.rdISBN.Text = "เลขมาตรฐานสากลประจำหนังสือ (ISBN)";
             this.rdISBN.UseVisualStyleBackColor = true;
             // 
             // rdBookName
@@ -98,10 +97,10 @@
             this.rdBookName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.rdBookName.Location = new System.Drawing.Point(132, 113);
             this.rdBookName.Name = "rdBookName";
-            this.rdBookName.Size = new System.Drawing.Size(94, 20);
+            this.rdBookName.Size = new System.Drawing.Size(72, 20);
             this.rdBookName.TabIndex = 6;
             this.rdBookName.TabStop = true;
-            this.rdBookName.Text = "Book name";
+            this.rdBookName.Text = "ชื่อหนังสือ";
             this.rdBookName.UseVisualStyleBackColor = true;
             // 
             // rdBookTypeId
@@ -110,10 +109,10 @@
             this.rdBookTypeId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.rdBookTypeId.Location = new System.Drawing.Point(132, 139);
             this.rdBookTypeId.Name = "rdBookTypeId";
-            this.rdBookTypeId.Size = new System.Drawing.Size(102, 20);
+            this.rdBookTypeId.Size = new System.Drawing.Size(96, 20);
             this.rdBookTypeId.TabIndex = 7;
             this.rdBookTypeId.TabStop = true;
-            this.rdBookTypeId.Text = "Book type ID";
+            this.rdBookTypeId.Text = "ประเภทหนังสือ";
             this.rdBookTypeId.UseVisualStyleBackColor = true;
             // 
             // btSearch
@@ -123,8 +122,9 @@
             this.btSearch.Name = "btSearch";
             this.btSearch.Size = new System.Drawing.Size(74, 25);
             this.btSearch.TabIndex = 9;
-            this.btSearch.Text = "Search";
+            this.btSearch.Text = "ค้นหา";
             this.btSearch.UseVisualStyleBackColor = true;
+            this.btSearch.Click += new System.EventHandler(this.btSearch_Click);
             // 
             // btMainMenu
             // 
@@ -136,10 +136,11 @@
             this.btMainMenu.Name = "btMainMenu";
             this.btMainMenu.Size = new System.Drawing.Size(83, 75);
             this.btMainMenu.TabIndex = 8;
-            this.btMainMenu.Text = "Main Menu";
+            this.btMainMenu.Text = "กลับสู่หน้าหลัก";
             this.btMainMenu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btMainMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btMainMenu.UseVisualStyleBackColor = false;
+            this.btMainMenu.Click += new System.EventHandler(this.btMainMenu_Click);
             // 
             // btCancel
             // 
@@ -151,10 +152,11 @@
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(83, 75);
             this.btCancel.TabIndex = 15;
-            this.btCancel.Text = "Cancel";
+            this.btCancel.Text = "ยกเลิก";
             this.btCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btCancel.UseVisualStyleBackColor = false;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // FrmBookList
             // 

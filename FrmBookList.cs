@@ -16,15 +16,42 @@ namespace MiniProjectLibraryManagementSystem
         {
             InitializeComponent();
         }
+        //++++++++++++++++++++++++++++++++ Method And Variable +++++++++++++++++++++++++++++++++++++++++++++++++
 
+
+
+
+        //+++++++++++++++++++++++++++++++ End of Method And Variable +++++++++++++++++++++++++++++++++++++++++++
+
+        //FormLoad
         private void FrmBookList_Load(object sender, EventArgs e)
         {
-
+            btCancel.PerformClick();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+
+
+        //+++++++++++++++++++++++++++++++++++++++ BUTTON FUNC +++++++++++++++++++++++++++++++++++++++++++++++++++
+        //btSearch_Click======================================
+        private void btSearch_Click(object sender, EventArgs e)
         {
 
         }
+        //btCancel_Click======================================
+        private void btCancel_Click(object sender, EventArgs e)
+        {
+            rdISBN.Checked = true;
+            tbSearch.Clear();
+            lsBookList.Clear();
+        }
+        //btMainMenu_Click======================================
+        private void btMainMenu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //++++++++++++++++++++++++++++++++++++++++ RADIO FUNC +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
     }
 }
