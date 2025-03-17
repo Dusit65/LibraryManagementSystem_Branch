@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace MiniProjectLibraryManagementSystem
 {
@@ -32,7 +34,40 @@ namespace MiniProjectLibraryManagementSystem
             MessageBox.Show(msg, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
+        //Method Get all from book_tb ====================
+        private void LoadData()
+        {
+            lsBookList.Items.Clear(); // ล้างรายการก่อนโหลดข้อมูลใหม่
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM book_tb";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        ListViewItem item = new ListViewItem(reader["iSbn"].ToString()); // ISBN
+                        item.SubItems.Add(reader["bookName"].ToString()); // ชื่อหนังสือ
+                        item.SubItems.Add(reader["bookTypeId"].ToString()); // ประเภทหนังสือ
+                        item.SubItems.Add(reader["bookQuantity"].ToString()); // จำนวนทั้งหมด
+                        item.SubItems.Add(reader["bookAvailable"].ToString()); // จำนวนคงเหลือ
+
+                        item.Tag = reader["iSbn"].ToString(); // เก็บ iSbn ไว้ใน Tag
+                        lsBookList.Items.Add(item);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("เกิดข้อผิดพลาด: " + ex.Message);
+                }
+            }
+        }
         //Method Search by ISBN=========================== 
         private void SearchByISBN(string iSbn)
         {
@@ -158,40 +193,7 @@ namespace MiniProjectLibraryManagementSystem
                 }
             }
         }
-        //Method Get all from book_tb 
-        private void LoadData()
-        {
-            lsBookList.Items.Clear(); // ล้างรายการก่อนโหลดข้อมูลใหม่
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    string query = "SELECT * FROM book_tb";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ListViewItem item = new ListViewItem(reader["iSbn"].ToString()); // ISBN
-                        item.SubItems.Add(reader["bookName"].ToString()); // ชื่อหนังสือ
-                        item.SubItems.Add(reader["bookTypeId"].ToString()); // ประเภทหนังสือ
-                        item.SubItems.Add(reader["bookQuantity"].ToString()); // จำนวนทั้งหมด
-                        item.SubItems.Add(reader["bookAvailable"].ToString()); // จำนวนคงเหลือ
-
-                        item.Tag = reader["iSbn"].ToString(); // เก็บ iSbn ไว้ใน Tag
-                        lsBookList.Items.Add(item);
-                    }
-
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("เกิดข้อผิดพลาด: " + ex.Message);
-                }
-            }
-        }
+        
 
         //+++++++++++++++++++++++++++++++ End of Method And Variable +++++++++++++++++++++++++++++++++++++++++++
 
@@ -214,7 +216,52 @@ namespace MiniProjectLibraryManagementSystem
             }
         }
 
+        //+++++++++++++++++++++++++++++++++++++++ ListView FUNC +++++++++++++++++++++++++++++++++++++++++++++++++++
+        private void lsBookList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lsBookList.SelectedItems.Count > 0)
+            {
 
+                string iSbn = lsBookList.SelectedItems[0].Tag.ToString(); // ดึง movieId จาก Tag
+
+                // ดึงข้อมูลภาพยนตร์จากฐานข้อมูลและแสดงในฟอร์ม
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    try
+                    {
+                        connection.Open();
+                        string query = "SELECT bookImage FROM book_tb WHERE iSbn = @iSbn";
+                        SqlCommand command = new SqlCommand(query, connection);
+                        command.Parameters.AddWithValue("@iSbn", iSbn);
+                        DataTable dt = new DataTable();
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.Read())
+                        {
+
+                            // ดึงรูปภาพจากฐานข้อมูลและแสดงใน PictureBox
+                            byte[] imageBytes = reader["bookImage"] as byte[];
+                            if (imageBytes != null)
+                            {
+                                using (MemoryStream ms = new MemoryStream(imageBytes))
+                                {
+                                    pcbBookCover.Image = Image.FromStream(ms);  // ใส่ PictureBox ที่คุณใช้แสดงรูปภาพ
+                                    bookImage = imageBytes;
+                                }
+                            }
+
+
+
+
+                        }
+                        reader.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("เกิดข้อผิดพลาด: " + ex.Message);
+                    }
+                }
+            }
+        }
 
         //+++++++++++++++++++++++++++++++++++++++ BUTTON FUNC +++++++++++++++++++++++++++++++++++++++++++++++++++
         //btSearch_Click======================================
@@ -312,5 +359,7 @@ namespace MiniProjectLibraryManagementSystem
                 }
             }
         }
+
+       
     }
 }

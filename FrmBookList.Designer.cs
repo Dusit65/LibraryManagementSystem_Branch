@@ -58,38 +58,47 @@
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6});
+            this.lsBookList.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lsBookList.FullRowSelect = true;
+            this.lsBookList.GridLines = true;
             this.lsBookList.HideSelection = false;
-            this.lsBookList.Location = new System.Drawing.Point(35, 195);
+            this.lsBookList.Location = new System.Drawing.Point(35, 196);
             this.lsBookList.Name = "lsBookList";
-            this.lsBookList.Size = new System.Drawing.Size(427, 228);
+            this.lsBookList.Size = new System.Drawing.Size(668, 228);
             this.lsBookList.TabIndex = 0;
+            this.lsBookList.TabStop = false;
             this.lsBookList.UseCompatibleStateImageBehavior = false;
             this.lsBookList.View = System.Windows.Forms.View.Details;
+            this.lsBookList.SelectedIndexChanged += new System.EventHandler(this.lsBookList_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "หมายเลขISBN";
-            this.columnHeader1.Width = 90;
+            this.columnHeader1.Width = 88;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "ชื่อหนังสือ";
-            this.columnHeader2.Width = 89;
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 247;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "หมวดหนังสือ";
-            this.columnHeader4.Width = 73;
+            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader4.Width = 167;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "จำนวนทั้งหมด";
-            this.columnHeader5.Width = 85;
+            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader5.Width = 80;
             // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "จำนวนที่ยืมได้";
-            this.columnHeader6.Width = 85;
+            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader6.Width = 82;
             // 
             // tbSearch
             // 
@@ -97,16 +106,16 @@
             this.tbSearch.Location = new System.Drawing.Point(35, 164);
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(279, 26);
-            this.tbSearch.TabIndex = 1;
+            this.tbSearch.TabIndex = 4;
             this.tbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbSearch_KeyPress);
             // 
             // HeadLabel
             // 
             this.HeadLabel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.HeadLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.HeadLabel.Location = new System.Drawing.Point(136, -3);
+            this.HeadLabel.Location = new System.Drawing.Point(310, -4);
             this.HeadLabel.Name = "HeadLabel";
-            this.HeadLabel.Size = new System.Drawing.Size(529, 50);
+            this.HeadLabel.Size = new System.Drawing.Size(303, 50);
             this.HeadLabel.TabIndex = 2;
             this.HeadLabel.Text = "รายการหนังสือ";
             this.HeadLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -114,10 +123,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label2.Location = new System.Drawing.Point(32, 62);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 16);
+            this.label2.Size = new System.Drawing.Size(60, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "ค้นหาด้วย";
             // 
@@ -128,7 +137,7 @@
             this.rdISBN.Location = new System.Drawing.Point(35, 88);
             this.rdISBN.Name = "rdISBN";
             this.rdISBN.Size = new System.Drawing.Size(214, 20);
-            this.rdISBN.TabIndex = 5;
+            this.rdISBN.TabIndex = 0;
             this.rdISBN.TabStop = true;
             this.rdISBN.Text = "เลขมาตรฐานสากลประจำหนังสือ (ISBN)";
             this.rdISBN.UseVisualStyleBackColor = true;
@@ -141,7 +150,7 @@
             this.rdBookName.Location = new System.Drawing.Point(35, 114);
             this.rdBookName.Name = "rdBookName";
             this.rdBookName.Size = new System.Drawing.Size(72, 20);
-            this.rdBookName.TabIndex = 6;
+            this.rdBookName.TabIndex = 1;
             this.rdBookName.TabStop = true;
             this.rdBookName.Text = "ชื่อหนังสือ";
             this.rdBookName.UseVisualStyleBackColor = true;
@@ -153,7 +162,7 @@
             this.btSearch.Location = new System.Drawing.Point(320, 164);
             this.btSearch.Name = "btSearch";
             this.btSearch.Size = new System.Drawing.Size(74, 25);
-            this.btSearch.TabIndex = 9;
+            this.btSearch.TabIndex = 5;
             this.btSearch.Text = "ค้นหา";
             this.btSearch.UseVisualStyleBackColor = true;
             this.btSearch.Click += new System.EventHandler(this.btSearch_Click);
@@ -164,10 +173,10 @@
             this.btMainMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btMainMenu.Image = global::MiniProjectLibraryManagementSystem.Properties.Resources.MainMenu1;
             this.btMainMenu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btMainMenu.Location = new System.Drawing.Point(694, 261);
+            this.btMainMenu.Location = new System.Drawing.Point(848, 12);
             this.btMainMenu.Name = "btMainMenu";
-            this.btMainMenu.Size = new System.Drawing.Size(83, 81);
-            this.btMainMenu.TabIndex = 8;
+            this.btMainMenu.Size = new System.Drawing.Size(90, 80);
+            this.btMainMenu.TabIndex = 7;
             this.btMainMenu.Text = "กลับสู่หน้าหลัก";
             this.btMainMenu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btMainMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -177,13 +186,12 @@
             // btCancel
             // 
             this.btCancel.BackColor = System.Drawing.Color.Transparent;
-            this.btCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btCancel.Image = global::MiniProjectLibraryManagementSystem.Properties.Resources.cancel;
+            this.btCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btCancel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btCancel.Location = new System.Drawing.Point(694, 348);
+            this.btCancel.Location = new System.Drawing.Point(400, 165);
             this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(83, 75);
-            this.btCancel.TabIndex = 15;
+            this.btCancel.Size = new System.Drawing.Size(83, 24);
+            this.btCancel.TabIndex = 6;
             this.btCancel.Text = "ยกเลิก";
             this.btCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -210,7 +218,7 @@
             this.cbbBookType.Location = new System.Drawing.Point(107, 139);
             this.cbbBookType.Name = "cbbBookType";
             this.cbbBookType.Size = new System.Drawing.Size(207, 21);
-            this.cbbBookType.TabIndex = 16;
+            this.cbbBookType.TabIndex = 3;
             // 
             // rdBookType
             // 
@@ -218,7 +226,7 @@
             this.rdBookType.Location = new System.Drawing.Point(35, 140);
             this.rdBookType.Name = "rdBookType";
             this.rdBookType.Size = new System.Drawing.Size(66, 17);
-            this.rdBookType.TabIndex = 18;
+            this.rdBookType.TabIndex = 2;
             this.rdBookType.TabStop = true;
             this.rdBookType.Text = "หมวดหมู่";
             this.rdBookType.UseVisualStyleBackColor = true;
@@ -227,19 +235,19 @@
             // pcbBookCover
             // 
             this.pcbBookCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pcbBookCover.Location = new System.Drawing.Point(487, 195);
+            this.pcbBookCover.Location = new System.Drawing.Point(758, 196);
             this.pcbBookCover.Name = "pcbBookCover";
-            this.pcbBookCover.Size = new System.Drawing.Size(163, 228);
+            this.pcbBookCover.Size = new System.Drawing.Size(168, 228);
             this.pcbBookCover.TabIndex = 19;
             this.pcbBookCover.TabStop = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label1.Location = new System.Drawing.Point(538, 164);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label1.Location = new System.Drawing.Point(804, 164);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 16);
+            this.label1.Size = new System.Drawing.Size(61, 16);
             this.label1.TabIndex = 20;
             this.label1.Text = "รูปหนังสือ";
             // 
@@ -248,7 +256,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(789, 450);
+            this.ClientSize = new System.Drawing.Size(950, 447);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pcbBookCover);
             this.Controls.Add(this.rdBookType);
