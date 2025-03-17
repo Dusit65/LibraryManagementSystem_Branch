@@ -34,6 +34,7 @@
             this.tbUserId = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lsBookBorrow = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btSearch = new System.Windows.Forms.Button();
             this.cbUserId = new System.Windows.Forms.CheckBox();
             this.cbdtpBorrow = new System.Windows.Forms.CheckBox();
@@ -41,7 +42,6 @@
             this.btMainMenu = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // HeadLabel
@@ -91,11 +91,17 @@
             this.lsBookBorrow.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.lsBookBorrow.HideSelection = false;
-            this.lsBookBorrow.Location = new System.Drawing.Point(141, 179);
+            this.lsBookBorrow.Location = new System.Drawing.Point(50, 181);
             this.lsBookBorrow.Name = "lsBookBorrow";
-            this.lsBookBorrow.Size = new System.Drawing.Size(530, 286);
+            this.lsBookBorrow.Size = new System.Drawing.Size(638, 286);
             this.lsBookBorrow.TabIndex = 7;
             this.lsBookBorrow.UseCompatibleStateImageBehavior = false;
+            this.lsBookBorrow.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "หมายเลขการยืม";
+            this.columnHeader1.Width = 89;
             // 
             // btSearch
             // 
@@ -136,9 +142,9 @@
             this.btCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btCancel.Image = global::MiniProjectLibraryManagementSystem.Properties.Resources.cancel;
             this.btCancel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btCancel.Location = new System.Drawing.Point(695, 295);
+            this.btCancel.Location = new System.Drawing.Point(727, 290);
             this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(83, 75);
+            this.btCancel.Size = new System.Drawing.Size(61, 75);
             this.btCancel.TabIndex = 14;
             this.btCancel.Text = "ยกเลิก";
             this.btCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -152,9 +158,9 @@
             this.btMainMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btMainMenu.Image = global::MiniProjectLibraryManagementSystem.Properties.Resources.MainMenu1;
             this.btMainMenu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btMainMenu.Location = new System.Drawing.Point(695, 390);
+            this.btMainMenu.Location = new System.Drawing.Point(727, 371);
             this.btMainMenu.Name = "btMainMenu";
-            this.btMainMenu.Size = new System.Drawing.Size(83, 75);
+            this.btMainMenu.Size = new System.Drawing.Size(61, 89);
             this.btMainMenu.TabIndex = 11;
             this.btMainMenu.Text = "กลับสู่หน้าหลัก";
             this.btMainMenu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
