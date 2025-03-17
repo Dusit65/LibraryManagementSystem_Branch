@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBookList));
-            this.lsBookList = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.HeadLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,58 +41,14 @@
             this.rdBookType = new System.Windows.Forms.RadioButton();
             this.pcbBookCover = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lsBookList = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pcbBookCover)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lsBookList
-            // 
-            this.lsBookList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6});
-            this.lsBookList.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.lsBookList.FullRowSelect = true;
-            this.lsBookList.GridLines = true;
-            this.lsBookList.HideSelection = false;
-            this.lsBookList.Location = new System.Drawing.Point(35, 196);
-            this.lsBookList.Name = "lsBookList";
-            this.lsBookList.Size = new System.Drawing.Size(668, 228);
-            this.lsBookList.TabIndex = 0;
-            this.lsBookList.TabStop = false;
-            this.lsBookList.UseCompatibleStateImageBehavior = false;
-            this.lsBookList.View = System.Windows.Forms.View.Details;
-            this.lsBookList.SelectedIndexChanged += new System.EventHandler(this.lsBookList_SelectedIndexChanged);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "หมายเลขISBN";
-            this.columnHeader1.Width = 88;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "ชื่อหนังสือ";
-            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 247;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "หมวดหนังสือ";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader4.Width = 167;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "จำนวนทั้งหมด";
-            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader5.Width = 80;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "จำนวนที่ยืมได้";
-            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader6.Width = 82;
             // 
             // tbSearch
             // 
@@ -238,6 +188,7 @@
             this.pcbBookCover.Location = new System.Drawing.Point(758, 196);
             this.pcbBookCover.Name = "pcbBookCover";
             this.pcbBookCover.Size = new System.Drawing.Size(168, 228);
+            this.pcbBookCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pcbBookCover.TabIndex = 19;
             this.pcbBookCover.TabStop = false;
             // 
@@ -251,12 +202,57 @@
             this.label1.TabIndex = 20;
             this.label1.Text = "รูปหนังสือ";
             // 
+            // lsBookList
+            // 
+            this.lsBookList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lsBookList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lsBookList.FullRowSelect = true;
+            this.lsBookList.GridLines = true;
+            this.lsBookList.HideSelection = false;
+            this.lsBookList.Location = new System.Drawing.Point(35, 196);
+            this.lsBookList.Name = "lsBookList";
+            this.lsBookList.Size = new System.Drawing.Size(690, 228);
+            this.lsBookList.TabIndex = 21;
+            this.lsBookList.UseCompatibleStateImageBehavior = false;
+            this.lsBookList.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "หมายเลขISBN";
+            this.columnHeader2.Width = 118;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "ชื่อหนังสือ";
+            this.columnHeader3.Width = 248;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "หมวดหมู่";
+            this.columnHeader4.Width = 159;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "จำนวนทั้งหมด";
+            this.columnHeader5.Width = 79;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "จำนวนที่ยืมได้";
+            this.columnHeader6.Width = 83;
+            // 
             // FrmBookList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(950, 447);
+            this.Controls.Add(this.lsBookList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pcbBookCover);
             this.Controls.Add(this.rdBookType);
@@ -269,7 +265,6 @@
             this.Controls.Add(this.btMainMenu);
             this.Controls.Add(this.HeadLabel);
             this.Controls.Add(this.tbSearch);
-            this.Controls.Add(this.lsBookList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -284,8 +279,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView lsBookList;
         private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.Label HeadLabel;
         private System.Windows.Forms.Label label2;
@@ -294,14 +287,15 @@
         private System.Windows.Forms.Button btMainMenu;
         private System.Windows.Forms.Button btSearch;
         private System.Windows.Forms.Button btCancel;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ComboBox cbbBookType;
         private System.Windows.Forms.RadioButton rdBookType;
         private System.Windows.Forms.PictureBox pcbBookCover;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListView lsBookList;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
     }
 }

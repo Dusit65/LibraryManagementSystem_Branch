@@ -22,81 +22,101 @@ namespace MiniProjectLibraryManagementSystem
         }
         //++++++++++++++++++++++++++++++++ Method And Variable +++++++++++++++++++++++++++++++++++++++++++++++++
 
-        //Connection DB string============================
-        private static string connectionString = "Server=tarasato.thddns.net,1433;Database=library_management_db;User Id=LMS;Password=Sql1433;";  
-
         //Create variable collect Movie and Director Image in data type ( byte[] ) for store in DB type image
         byte[] bookImage;
 
-        //Method Show Warning MSG=========================
-        public static void showWarningMSG(string msg)
-        {
-            MessageBox.Show(msg, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
 
         //Method Get all from book_tb ====================
         private void LoadData()
         {
-            lsBookList.Items.Clear(); // ล้างรายการก่อนโหลดข้อมูลใหม่
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ShareData.conStr))
             {
-                try
-                {
-                    connection.Open();
-                    string query = "SELECT * FROM book_tb";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    SqlDataReader reader = command.ExecuteReader();
+                conn.Open();
+                string strSql = "SELECT iSbn, bookName, bookImage, bookTypeId, bookQuantity, bookAvailable FROM book_tb";
 
-                    while (reader.Read())
+                using (SqlCommand sqlCommand = new SqlCommand(strSql, conn))
+                {
+                    try
                     {
-                        ListViewItem item = new ListViewItem(reader["iSbn"].ToString()); // ISBN
-                        item.SubItems.Add(reader["bookName"].ToString()); // ชื่อหนังสือ
-                        item.SubItems.Add(reader["bookTypeId"].ToString()); // ประเภทหนังสือ
-                        item.SubItems.Add(reader["bookQuantity"].ToString()); // จำนวนทั้งหมด
-                        item.SubItems.Add(reader["bookAvailable"].ToString()); // จำนวนคงเหลือ
+                        SqlDataAdapter adapter = new SqlDataAdapter(sqlCommand);
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
 
-                        item.Tag = reader["iSbn"].ToString(); // เก็บ iSbn ไว้ใน Tag
-                        lsBookList.Items.Add(item);
+                        // ✅ ตั้งค่าคอลัมน์ ListView หากยังไม่มี
+                        if (lsBookList.Columns.Count == 0)
+                        {
+                            lsBookList.View = View.Details;
+                            lsBookList.Columns.Add("ISBN", 100);
+                            lsBookList.Columns.Add("ชื่อหนังสือ", 200);
+                            lsBookList.Columns.Add("ประเภทหนังสือ", 100);
+                            lsBookList.Columns.Add("จำนวนทั้งหมด", 100);
+                            lsBookList.Columns.Add("จำนวนคงเหลือ", 100);
+                        }
+
+                        lsBookList.Items.Clear();
+                        int orderIndex = 1;
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            ListViewItem item = new ListViewItem(orderIndex.ToString());
+                            item.SubItems.Add(row["iSbn"].ToString());
+                            item.SubItems.Add(row["bookName"].ToString());
+
+                            // ✅ ตรวจสอบ bookTypeId ว่ามีใน List หรือไม่
+                            int bookTypeId = Convert.ToInt32(row["bookTypeId"]);
+                            string bookTypeName = (bookTypeId - 1 < ShareData.bookTypeNames.Count)
+                                ? ShareData.bookTypeNames[bookTypeId - 1]
+                                : "ไม่ทราบประเภท";
+
+                            item.SubItems.Add(bookTypeName);
+                            item.SubItems.Add(row["bookQuantity"].ToString());
+                            item.SubItems.Add(row["bookAvailable"].ToString());
+
+                            lsBookList.Items.Add(item);
+                            orderIndex++;
+                        }
                     }
-
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("เกิดข้อผิดพลาด: " + ex.Message);
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
                 }
             }
         }
         //Method Search by ISBN=========================== 
         private void SearchByISBN(string iSbn)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(ShareData.conStr))
             {
                 try
                 {
                     connection.Open();
-                    // คำสั่ง SQL ดึงข้อมูลเฉพาะคอลัมน์ที่ต้องการ
                     string query = "SELECT * FROM book_tb WHERE iSbn = @iSbn";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@iSbn", iSbn);
 
                     SqlDataReader reader = command.ExecuteReader();
+                    lsBookList.Items.Clear(); // ล้างข้อมูลก่อนเพิ่ม
+
                     if (reader.Read())
                     {
-                        // สร้าง ListViewItem และเพิ่มข้อมูลแต่ละคอลัมน์
-                        ListViewItem item = new ListViewItem(reader["iSbn"].ToString()); // ISBN
-                        item.SubItems.Add(reader["bookName"].ToString()); // ชื่อหนังสือ
-                        item.SubItems.Add(reader["bookTypeId"].ToString()); // ประเภทหนังสือ
-                        item.SubItems.Add(reader["bookQuantity"].ToString()); // จำนวนทั้งหมด
-                        item.SubItems.Add(reader["bookAvailable"].ToString()); // จำนวนคงเหลือ
+                        int bookTypeId = Convert.ToInt32(reader["bookTypeId"]);
+                        string bookTypeName = (bookTypeId >= 0 && bookTypeId < ShareData.bookTypeNames.Count)
+                            ? ShareData.bookTypeNames[bookTypeId]
+                            : "ไม่ทราบประเภท";
 
-                        item.Tag = reader["iSbn"].ToString(); // เก็บ iSbn ไว้ใน Tag
+                        ListViewItem item = new ListViewItem(reader["iSbn"].ToString());
+                        item.SubItems.Add(reader["bookName"].ToString());
+                        item.SubItems.Add(bookTypeName);
+                        item.SubItems.Add(reader["bookQuantity"].ToString());
+                        item.SubItems.Add(reader["bookAvailable"].ToString());
+
+                        item.Tag = reader["iSbn"].ToString();
                         lsBookList.Items.Add(item);
                     }
                     else
                     {
-                        MessageBox.Show("ไม่พบตัวเลขISBNของหนังสือที่ค้นหา", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("ไม่พบ ISBN ของหนังสือที่ค้นหา", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     reader.Close();
                 }
@@ -106,76 +126,80 @@ namespace MiniProjectLibraryManagementSystem
                 }
             }
         }
+
         //Method Search by book name======================
         private void SearchByBookName(string bookName)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(ShareData.conStr))
             {
-                
                 try
                 {
                     connection.Open();
-                    string query = "SELECT * FROM book_tb WHERE bookName = @bookName";
+                    string query = "SELECT * FROM book_tb WHERE bookName LIKE @bookName";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@bookName", "%" + bookName + "%");
-
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        // สร้าง ListViewItem และเพิ่มข้อมูลแต่ละคอลัมน์
-                        ListViewItem item = new ListViewItem(reader["iSbn"].ToString()); // ISBN
-                        item.SubItems.Add(reader["bookName"].ToString()); // ชื่อหนังสือ
-                        item.SubItems.Add(reader["bookTypeId"].ToString()); // ประเภทหนังสือ
-                        item.SubItems.Add(reader["bookQuantity"].ToString()); // จำนวนทั้งหมด
-                        item.SubItems.Add(reader["bookAvailable"].ToString()); // จำนวนคงเหลือ
-
-                        item.Tag = reader["iSbn"].ToString(); // เก็บ iSbn ไว้ใน Tag
-                        lsBookList.Items.Add(item);
-                    }
-                    else
-                    {
-                        MessageBox.Show("ไม่พบรายชื่อของหนังสือที่ค้นหา", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("เกิดข้อผิดพลาด: " + ex.Message);
-                }
-                
-            }
-        }
-
-        //Method Search by book type======================
-        private void SearchByBookType(int selectedIndex)
-        {
-            // ตรวจสอบว่าค่าที่เลือกอยู่ในช่วงที่ถูกต้อง
-            if (selectedIndex < 0 || selectedIndex >= 12)
-            {
-                MessageBox.Show("กรุณาเลือกประเภทหนังสือที่ถูกต้อง", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    // คำสั่ง SQL ค้นหาหนังสือตาม bookTypeId
-                    string query = "SELECT * FROM book_tb WHERE bookTypeId = @bookTypeId";
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@bookTypeId", selectedIndex + 1); // แปลง index เป็น bookTypeId
 
                     SqlDataReader reader = command.ExecuteReader();
                     lsBookList.Items.Clear(); // ล้างข้อมูลก่อนเพิ่มรายการใหม่
 
                     while (reader.Read())
                     {
-                        ListViewItem item = new ListViewItem(reader["iSbn"].ToString()); // ISBN
-                        item.SubItems.Add(reader["bookName"].ToString()); // ชื่อหนังสือ
-                        item.SubItems.Add((selectedIndex + 1).ToString()); // ประเภทหนังสือ (bookTypeId)
-                        item.SubItems.Add(reader["bookQuantity"].ToString()); // จำนวนทั้งหมด
-                        item.SubItems.Add(reader["bookAvailable"].ToString()); // จำนวนคงเหลือ
+                        int bookTypeId = Convert.ToInt32(reader["bookTypeId"]);
+                        string bookTypeName = (bookTypeId >= 0 && bookTypeId < ShareData.bookTypeNames.Count)
+                            ? ShareData.bookTypeNames[bookTypeId]
+                            : "ไม่ทราบประเภท";
+
+                        ListViewItem item = new ListViewItem(reader["iSbn"].ToString());
+                        item.SubItems.Add(reader["bookName"].ToString());
+                        item.SubItems.Add(bookTypeName);
+                        item.SubItems.Add(reader["bookQuantity"].ToString());
+                        item.SubItems.Add(reader["bookAvailable"].ToString());
+
+                        lsBookList.Items.Add(item);
+                    }
+
+                    if (!reader.HasRows)
+                    {
+                        MessageBox.Show("ไม่พบรายชื่อหนังสือที่ค้นหา", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("เกิดข้อผิดพลาด: " + ex.Message);
+                }
+            }
+        }
+
+        //Method Search by book type======================
+        private void SearchByBookType(int selectedIndex)
+        {
+            if (selectedIndex < 0 || selectedIndex >= ShareData.bookTypeNames.Count)
+            {
+                MessageBox.Show("กรุณาเลือกประเภทหนังสือที่ถูกต้อง", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SqlConnection connection = new SqlConnection(ShareData.conStr))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM book_tb WHERE bookTypeId = @bookTypeId";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@bookTypeId", selectedIndex);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    lsBookList.Items.Clear();
+
+                    while (reader.Read())
+                    {
+                        ListViewItem item = new ListViewItem(reader["iSbn"].ToString());
+                        item.SubItems.Add(reader["bookName"].ToString());
+                        item.SubItems.Add(ShareData.bookTypeNames[selectedIndex]); // ใช้ชื่อหมวดหมู่แทนเลข
+                        item.SubItems.Add(reader["bookQuantity"].ToString());
+                        item.SubItems.Add(reader["bookAvailable"].ToString());
 
                         lsBookList.Items.Add(item);
                     }
@@ -193,7 +217,8 @@ namespace MiniProjectLibraryManagementSystem
                 }
             }
         }
-        
+
+
 
         //+++++++++++++++++++++++++++++++ End of Method And Variable +++++++++++++++++++++++++++++++++++++++++++
 
@@ -202,7 +227,7 @@ namespace MiniProjectLibraryManagementSystem
         {
             btCancel.PerformClick();
             //Connection DB chenck
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(ShareData.conStr))
             {
                 try
                 {
@@ -221,11 +246,10 @@ namespace MiniProjectLibraryManagementSystem
         {
             if (lsBookList.SelectedItems.Count > 0)
             {
+                string iSbn = lsBookList.SelectedItems[0].Text;
+                MessageBox.Show($"Selected ISBN: {iSbn}"); // ✅ Debug เช็คว่า ISBN ถูกเลือกจริงไหม
 
-                string iSbn = lsBookList.SelectedItems[0].Tag.ToString(); // ดึง movieId จาก Tag
-
-                // ดึงข้อมูลภาพยนตร์จากฐานข้อมูลและแสดงในฟอร์ม
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(ShareData.conStr))
                 {
                     try
                     {
@@ -233,35 +257,36 @@ namespace MiniProjectLibraryManagementSystem
                         string query = "SELECT bookImage FROM book_tb WHERE iSbn = @iSbn";
                         SqlCommand command = new SqlCommand(query, connection);
                         command.Parameters.AddWithValue("@iSbn", iSbn);
-                        DataTable dt = new DataTable();
+
                         SqlDataReader reader = command.ExecuteReader();
                         if (reader.Read())
                         {
-
-                            // ดึงรูปภาพจากฐานข้อมูลและแสดงใน PictureBox
-                            byte[] imageBytes = reader["bookImage"] as byte[];
-                            if (imageBytes != null)
+                            if (!reader.IsDBNull(reader.GetOrdinal("bookImage")))
                             {
+                                byte[] imageBytes = (byte[])reader["bookImage"];
+                                MessageBox.Show($"Image Size: {imageBytes.Length} bytes"); // ✅ Debug เช็คว่ามีข้อมูลรูปไหม
+
                                 using (MemoryStream ms = new MemoryStream(imageBytes))
                                 {
-                                    pcbBookCover.Image = Image.FromStream(ms);  // ใส่ PictureBox ที่คุณใช้แสดงรูปภาพ
-                                    bookImage = imageBytes;
+                                    pcbBookCover.Image = Image.FromStream(ms);
                                 }
                             }
-
-
-
-
+                            else
+                            {
+                                MessageBox.Show("ไม่มีรูปหนังสือ");
+                                pcbBookCover.Image = null;
+                            }
                         }
                         reader.Close();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("เกิดข้อผิดพลาด: " + ex.Message);
+                        MessageBox.Show("เกิดข้อผิดพลาดในการโหลดรูปภาพ: " + ex.Message);
                     }
                 }
             }
         }
+
 
         //+++++++++++++++++++++++++++++++++++++++ BUTTON FUNC +++++++++++++++++++++++++++++++++++++++++++++++++++
         //btSearch_Click======================================
@@ -304,7 +329,7 @@ namespace MiniProjectLibraryManagementSystem
         {
             rdISBN.Checked = true;
             tbSearch.Clear();
-            lsBookList.Clear();
+            lsBookList.Items.Clear();
             cbbBookType.Enabled = false;
             cbbBookType.SelectedIndex = 0;
             pcbBookCover.Image = null;
@@ -315,7 +340,6 @@ namespace MiniProjectLibraryManagementSystem
         {
 
         }
-
 
         //+++++++++++++++++++++++++++++++++++++++ RADIO FUNC +++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -360,6 +384,6 @@ namespace MiniProjectLibraryManagementSystem
             }
         }
 
-       
+        
     }
 }
