@@ -185,7 +185,7 @@
             // pcbBookCover
             // 
             this.pcbBookCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pcbBookCover.Location = new System.Drawing.Point(758, 196);
+            this.pcbBookCover.Location = new System.Drawing.Point(756, 196);
             this.pcbBookCover.Name = "pcbBookCover";
             this.pcbBookCover.Size = new System.Drawing.Size(168, 228);
             this.pcbBookCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -220,6 +220,7 @@
             this.lsBookList.TabIndex = 21;
             this.lsBookList.UseCompatibleStateImageBehavior = false;
             this.lsBookList.View = System.Windows.Forms.View.Details;
+            this.lsBookList.SelectedIndexChanged += new System.EventHandler(this.lsBookList_SelectedIndexChanged_1);
             // 
             // columnHeader2
             // 
@@ -272,6 +273,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Library Management System - Book list";
             this.Load += new System.EventHandler(this.FrmBookList_Load);
+            this.Shown += new System.EventHandler(this.FrmBookList_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.pcbBookCover)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

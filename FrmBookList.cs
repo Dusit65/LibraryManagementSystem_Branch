@@ -227,6 +227,7 @@ namespace MiniProjectLibraryManagementSystem
         {
             btCancel.PerformClick();
             //Connection DB chenck
+            /*
             using (SqlConnection conn = new SqlConnection(ShareData.conStr))
             {
                 try
@@ -238,43 +239,47 @@ namespace MiniProjectLibraryManagementSystem
                 {
                     MessageBox.Show("เชื่อมต่อไม่สำเร็จ: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            }*/
+        }
+        private void FrmBookList_Shown(object sender, EventArgs e)
+        {
+            btCancel.PerformClick();
         }
 
         //+++++++++++++++++++++++++++++++++++++++ ListView FUNC +++++++++++++++++++++++++++++++++++++++++++++++++++
-        private void lsBookList_SelectedIndexChanged(object sender, EventArgs e)
+        private void lsBookList_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (lsBookList.SelectedItems.Count > 0)
             {
-                string iSbn = lsBookList.SelectedItems[0].Text;
-                MessageBox.Show($"Selected ISBN: {iSbn}"); // ✅ Debug เช็คว่า ISBN ถูกเลือกจริงไหม
+                ListViewItem selectedItem = lsBookList.SelectedItems[0];
+                string iSbn = selectedItem.SubItems[1].Text;
+                //MessageBox.Show($"Selected ISBN: {iSbn}"); // ✅ Debug เช็คว่า ISBN ถูกเลือกจริงไหม
 
                 using (SqlConnection connection = new SqlConnection(ShareData.conStr))
                 {
                     try
                     {
                         connection.Open();
-                        string query = "SELECT bookImage FROM book_tb WHERE iSbn = @iSbn";
+                        string query = "SELECT * FROM book_tb WHERE iSbn = @iSbn";
                         SqlCommand command = new SqlCommand(query, connection);
                         command.Parameters.AddWithValue("@iSbn", iSbn);
 
                         SqlDataReader reader = command.ExecuteReader();
                         if (reader.Read())
                         {
-                            if (!reader.IsDBNull(reader.GetOrdinal("bookImage")))
+                            byte[] imageBytes = reader["bookImage"] as byte[];
+                            if (imageBytes != null)
                             {
-                                byte[] imageBytes = (byte[])reader["bookImage"];
-                                MessageBox.Show($"Image Size: {imageBytes.Length} bytes"); // ✅ Debug เช็คว่ามีข้อมูลรูปไหม
-
                                 using (MemoryStream ms = new MemoryStream(imageBytes))
                                 {
-                                    pcbBookCover.Image = Image.FromStream(ms);
+                                    pcbBookCover.Image = Image.FromStream(ms);  // ใส่ PictureBox ที่คุณใช้แสดงรูปภาพ
+                                    bookImage = imageBytes;
                                 }
                             }
-                            else
+                            else 
                             {
-                                MessageBox.Show("ไม่มีรูปหนังสือ");
-                                pcbBookCover.Image = null;
+                                pcbBookCover.Image = null;  // ใส่ PictureBox ที่คุณใช้แสดงรูปภาพ
+                                bookImage = null;
                             }
                         }
                         reader.Close();
